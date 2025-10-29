@@ -15,8 +15,8 @@ public class ProcessWeatherData
     }
 
     [Function(nameof(ProcessWeatherData))]
-    [BlobOutput("images/image_{region}.jpg", Connection = "AzureWebJobsStorage")]
-    public async Task<byte[]?> Run([QueueTrigger("station-data", Connection = "AzureWebJobsStorage")] string message)
+    [BlobOutput("images/image_{region}.jpg", Connection = "BLOB_STORAGE")]
+    public async Task<byte[]?> Run([QueueTrigger("station-data", Connection = "STATION_QUEUE")] string message)
     {
         _logger.LogInformation("Got message", message);
 
@@ -37,10 +37,11 @@ public class ProcessWeatherData
         {
             // if data is not there, don't upload anything
             _logger.LogInformation("Drawing failed. returning normal image");
-            return null;
         }
-
-        _logger.LogInformation("Drawing succeeded. Returning image");
+        else
+        {
+            _logger.LogInformation("Drawing succeeded. Returning image");
+        }
 
         return drawnImage;
     }

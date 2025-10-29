@@ -21,8 +21,8 @@ public class RequestStations
     }
 
     [Function(nameof(RequestStations))]
-    [QueueOutput("station-data", Connection = "AzureWebJobsStorage")]
-    public async Task<IEnumerable<WeatherData>?> Run([QueueTrigger("start-process", Connection = "AzureWebJobsStorage")] string message)
+    [QueueOutput("station-data", Connection = "STATION_QUEUE")]
+    public async Task<IEnumerable<WeatherData>?> Run([QueueTrigger("start-process", Connection = "START_QUEUE")] string message)
     {
         _logger.LogInformation("C# Queue trigger function is processed", message);
 

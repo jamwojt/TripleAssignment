@@ -16,7 +16,7 @@ public class AccessImages
     [Function("AccessImages")]
     public async Task<HttpResponseData> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req,
-            [BlobInput("images/image_{query.city}.jpg", Connection = "AzureWebJobsStorage")] Stream blobItem
+            [BlobInput("images/image_{query.city}.jpg", Connection = "BLOB_STORAGE")] Stream blobItem
             )
     {
         _logger.LogInformation("City requested");

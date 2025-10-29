@@ -14,11 +14,20 @@ public class StartProcess
     }
 
     [Function("StartProcess")]
-    [QueueOutput("start-process", Connection = "AzureWebJobsStorage")]
-    public string Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+    [QueueOutput("start-process", Connection = "START_QUEUE")]
+    public HttpResponseData Run(
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req,
+            out string msgQueue
+            )
     {
         _logger.LogInformation("Putting start process message on queue");
 
-        return "start";
+        msgQueue = "start";
+
+        HttpResponseData response = req.CreateResponse(System.Net.HttpStatusCode.OK);
+        response.Headers.Add("Content-Type", "Application/json");
+        response.WriteString("{process: \"started\"}");
+
+        return response;
     }
 }
