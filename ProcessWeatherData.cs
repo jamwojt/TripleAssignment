@@ -15,10 +15,10 @@ public class ProcessWeatherData
     }
 
     [Function(nameof(ProcessWeatherData))]
-    [BlobOutput("images/image_{region}.jpg", Connection = "BLOB_STORAGE")]
-    public async Task<byte[]?> Run([QueueTrigger("station-data", Connection = "STATION_QUEUE")] string message)
+    [BlobOutput("images/image_{region}.jpg", Connection = "AzureWebJobsStorage")]
+    public async Task<byte[]?> Run([QueueTrigger("station-data", Connection = "AzureWebJobsStorage")] string message)
     {
-        _logger.LogInformation("Got message", message);
+        _logger.LogInformation("Got message: {message}", message);
 
         HttpClient client = new HttpClient();
         string url = "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&fit=crop&w=1080&q=80&fit=max";
@@ -29,7 +29,7 @@ public class ProcessWeatherData
         JObject? msg = JsonConvert.DeserializeObject<JObject>(message);
 
         string formatMsg = $"{msg?["region"]}: {msg?["temperature"]} degrees";
-        _logger.LogInformation($"formatted message: {formatMsg}");
+        _logger.LogInformation("formatted message: {formatMsg}", formatMsg);
         _logger.LogInformation("Writing message on the image");
         byte[]? drawnImage = ImageDrawer.AddTextToImage(imageResponse, formatMsg);
 
