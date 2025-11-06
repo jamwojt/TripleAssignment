@@ -1,4 +1,5 @@
-http://domain/StartProcess
+# Start process so that the data is new
+https://triple-func.azurewebsites.net/api/StartProcess
 
-
-http://domain/AccessImage?city=Venlo
+# Get any city using the city query parameter (Venlo as example)
+https://triple-func.azurewebsites.net/api/AccessImages?city=Venlo

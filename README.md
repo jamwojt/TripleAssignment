@@ -1,10 +1,13 @@
-## Preparation
-- Azure resource group (triple-rg)
-- Run "dotnet publish -c Release -o ./publish" in the root directory
+# Simple Azure Functions App
+Gets temperature data for multiple cities and stores the result on the Blob storage.
+Results can be retrieved using an http endpoint.
 
-## Deployment
-- Run deploy.ps1 script
+# Deployment
+- clone the repository
+- Run deploy.ps1 or deploy.sh depending on the OS
 
-## Configuration
-- Set app environment variables for START_QUEUE, STATION_QUEUE, BLOB_STORAGE
-- Set app storage to point to a storage account
+# Access
+- Request new images with data using StartProcess endpoint
+- View generated images using AccessImages endpoint with the city query argument.
+
+For examples, see docs.http file.
