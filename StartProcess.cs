@@ -18,7 +18,7 @@ public class StartProcess
 
     [Function("StartProcess")]
     public async Task<HttpResponseData> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req
             )
     {
         _logger.LogInformation("Putting start process message on queue");

@@ -37,6 +37,7 @@ public class ProcessWeatherData
         {
             // if data is not there, don't upload anything
             _logger.LogInformation("Drawing failed. returning normal image");
+            return [];
         }
         else
         {
